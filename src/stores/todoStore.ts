@@ -25,7 +25,7 @@ export const useTodoStore = defineStore('todo', () => {
 
 	const toggleToDo = (id: number): void => {
 		const indexToUpdate = todos.value.findIndex((item: Todo) => item.id === id);
-		if (indexToUpdate!== -1) {
+		if (indexToUpdate !== -1) {
 			const itemToUpdate = todos.value[indexToUpdate];
 			itemToUpdate.checked = !itemToUpdate.checked;
 		}

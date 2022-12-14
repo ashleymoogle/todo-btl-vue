@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from 'vitest'
 import { setActivePinia, createPinia, storeToRefs } from 'pinia';
 import { useTodoStore } from '../src/stores/todoStore';
 
-describe('Counter Store', () => {
+describe('Todo Store', () => {
 	beforeEach(() => {
 		// creates a fresh pinia and make it active so it's automatically picked
 		// up by any useStore() call without having to pass it to it:
@@ -10,18 +10,27 @@ describe('Counter Store', () => {
 		setActivePinia(createPinia())
 	})
 
-	it('increments', () => {
+	it('adds a todo', () => {
 		const store = useTodoStore()
-		const { count } = storeToRefs(store);
-		expect(count.value).toBe(0)
-		store.increment()
-		expect(count.value).toBe(1)
+		const { todos } = storeToRefs(store);
+		store.addTodo('new todo', false)
+		expect(todos.value[0].id).toBe(0)
 	})
 
-	it('increments by amount', () => {
+	it('toggles a todo', () => {
 		const store = useTodoStore()
-		const { count } = storeToRefs(store);
-		store.increment(10)
-		expect(count.value).toBe(10)
+		const { todos } = storeToRefs(store);
+		store.addTodo('new todo', false)
+		expect(todos.value[0].checked).toBe(false)
+		store.toggleToDo(0);
+		expect(todos.value[0].checked).toBe(true)
+	})
+
+	it('removes a todo', () => {
+		const store = useTodoStore()
+		const { todos } = storeToRefs(store);
+		store.addTodo('new todo', false)
+		store.removeTodo(0);
+		expect(todos.value).toHaveLength(0);
 	})
 })
