@@ -5,6 +5,7 @@ App was created using [create vite](https://vitejs.dev/guide/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
 - [Pinia](https://pinia.vuejs.org/)
+- Auto imports (components and icons) via [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
 
 Style:
 - [Sass](https://sass-lang.com/)
