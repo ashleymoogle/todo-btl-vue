@@ -2,7 +2,7 @@
     <div class="wrapper">
         <h1 class="title">TODO with Vue 3 / Typescript / Pinia</h1>
         <div class="content">
-            Content will be here...
+            <i-foundation-plus />Content will be here...
         </div>
   </div>
 </template>

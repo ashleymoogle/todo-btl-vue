@@ -9,6 +9,7 @@ App was created using [create vite](https://vitejs.dev/guide/)
 Style:
 - [Sass](https://sass-lang.com/)
 - [Windi CSS](https://windicss.org/)
+- [Iconify](https://docs.iconify.design/) (Via [unplugin icons](https://github.com/antfu/unplugin-icons))
 
 Tests:
 - [Vitest](https://vitest.dev/)
