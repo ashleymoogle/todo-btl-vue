@@ -1,20 +1,38 @@
 <template>
-    <div class="wrapper">
-        <h1 class="title">TODO with Vue 3 / Typescript / Pinia</h1>
-        <div class="content">
-            <i-foundation-plus />Content will be here...
-        </div>
-  </div>
+    <todo-wrapper>
+        <template #items>
+            <div v-if="todos.length" class="content-body">
+                <div class="todos">
+                    <todo v-for="todo in todos" :key="todo.id" :todo="todo" />
+                </div>
+            </div>
+        </template>
+        <template #title>
+            <h1 class="title">TODO with Vue 3 / Typescript / Pinia</h1>
+        </template>
+    </todo-wrapper>
 </template>
 
+<script lang="ts">
+    import { defineComponent, ref } from 'vue'
+    import { useTodoStore } from './stores/todoStore';
+    import { storeToRefs } from 'pinia'
+    import TodoWrapper from './components/todoWrapper.vue'
+    export default defineComponent({
+        components: {TodoWrapper},
+        setup () {
+            const todoStore = useTodoStore();
+            const { todos } = storeToRefs(todoStore);
+
+            return {
+                todos,
+            }
+        },
+    })
+</script>
+
 <style lang="scss" scoped>
-    .wrapper {
-        .title {
-            @apply font-bold text-green-500;
-        }
-        .content {
-            height: calc(100vh - 20px);
-            @apply mt-4;
-        }
+    .title {
+        @apply font-bold text-green-500;
     }
 </style>

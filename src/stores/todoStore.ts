@@ -1,18 +1,35 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+
+export interface Todo {
+	label: string
+	id: number
+	checked: boolean
+}
 
 export const useTodoStore = defineStore('todo', () => {
-	const count = ref(0)
+	const todos = ref<Todo[]>([]);
+	const index = ref(todos.value.length);
 
-	const doubleCount = computed(() => count.value * 2)
+	const addTodo = (label: string, checked: boolean) => {
+		todos.value.push({ label, id: index.value, checked })
+		index.value++;
+	}
 
-	const increment = (val?: number) => {
-		if (val) {
-			count.value = count.value + val;
-		} else {
-			count.value++
+	const removeTodo = (id: number): void => {
+		const indexToRemove = todos.value.findIndex((item: Todo) => item.id === id);
+		if (indexToRemove !== -1) {
+			todos.value.splice(indexToRemove, 1);
 		}
 	}
 
-	return { count, doubleCount, increment }
+	const toggleToDo = (id: number): void => {
+		const indexToUpdate = todos.value.findIndex((item: Todo) => item.id === id);
+		if (indexToUpdate!== -1) {
+			const itemToUpdate = todos.value[indexToUpdate];
+			itemToUpdate.checked = !itemToUpdate.checked;
+		}
+	}
+
+	return { addTodo, todos, removeTodo, toggleToDo }
 })
