@@ -32,6 +32,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .content-body {
+        @apply mt-4 bg-green-900 border-2 border-green-500 rounded-xl;
+    }
     .title {
         @apply font-bold text-green-500;
     }

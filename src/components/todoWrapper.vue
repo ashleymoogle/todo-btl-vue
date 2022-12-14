@@ -12,7 +12,7 @@
                     <input id="new-todo-check" type="checkbox" v-model="newTodoCheck" />
                 </div>
                 <div class="text-left">
-                    <button class="mt-2 flex justify-center items-center p-2 bg-green-500 rounded-full" @click="createTodo">
+                    <button class="btn-create-todo" @click="createTodo">
                         <i-foundation-plus class="mr-2" />
                         Add todo
                     </button>
@@ -29,7 +29,7 @@
     export default defineComponent({
         setup () {
             const todoStore = useTodoStore();
-            const { addTodo, removeTodo, toggleToDo } = todoStore;
+            const { addTodo } = todoStore;
 
             const newTodo = ref('');
             const newTodoCheck = ref(false);
@@ -44,8 +44,6 @@
                 createTodo,
                 newTodo,
                 newTodoCheck,
-                removeTodo,
-                toggleToDo,
             }
         },
     })
@@ -57,8 +55,10 @@
             height: calc(100vh - 20px);
             @apply mt-4;
 
-            .content-body {
-                @apply mt-4 bg-green-900 border-2 border-green-500 rounded-xl;
+            .content-head {
+                .btn-create-todo {
+                    @apply mt-2 flex justify-center items-center p-2 bg-green-500 rounded-full;
+                }
             }
         }
     }

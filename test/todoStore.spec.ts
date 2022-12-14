@@ -15,6 +15,8 @@ describe('Todo Store', () => {
 		const { todos } = storeToRefs(store);
 		store.addTodo('new todo', false)
 		expect(todos.value[0].id).toBe(0)
+		store.addTodo('new todo', false)
+		expect(todos.value[1].id).toBe(1)
 	})
 
 	it('toggles a todo', () => {
