@@ -1,9 +1,19 @@
 <template>
     <todo-wrapper>
         <template #items>
+            <div v-if="todos.length" class="mt-4">
+                <select v-model="filter">
+                    <option value="all">All</option>
+                    <option value="not">Not done</option>
+                    <option value="done">Done</option>
+                </select>
+            </div>
             <div v-if="todos.length" class="content-body">
                 <div class="todos">
-                    <todo v-for="todo in todos" :key="todo.id" :todo="todo" />
+                    <todo v-for="todo in todosFiltered" :key="todo.id" :todo="todo" />
+                </div>
+                <div v-if="filter !== 'all'" class="flex justify-center items-center">
+                   <i-foundation-plus class="mr-1" style="font-size: 12px" /> {{ todos.length - todosFiltered.length }} items hidden...
                 </div>
             </div>
         </template>
@@ -14,8 +24,8 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, ref } from 'vue'
-    import { useTodoStore } from './stores/todoStore';
+    import { defineComponent, ref, computed } from 'vue'
+    import { Todo, useTodoStore } from './stores/todoStore'
     import { storeToRefs } from 'pinia'
     import TodoWrapper from './components/todoWrapper.vue'
     export default defineComponent({
@@ -24,8 +34,21 @@
             const todoStore = useTodoStore();
             const { todos } = storeToRefs(todoStore);
 
+            const filter = ref('all');
+
+            const todosFiltered = computed(() => {
+                if (filter.value === 'not') {
+                    return todos.value.filter((item: Todo) => !item.checked)
+                } else if (filter.value === 'done') {
+                    return todos.value.filter((item: Todo) => item.checked)
+                }
+                return todos.value;
+            })
+
             return {
+                filter,
                 todos,
+                todosFiltered,
             }
         },
     })
